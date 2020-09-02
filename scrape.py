@@ -4,12 +4,18 @@ from bs4 import BeautifulSoup
 import pprint
 
 res = requests.get('https://news.ycombinator.com/news')
+res2 = requests.get('https://news.ycombinator.com/news?p=2')
 soup = BeautifulSoup(res.text, 'html.parser')
+soup2 = BeautifulSoup(res2.text, 'html.parser')
 # print(soup.find_all('span'))
 
 links = soup.select('.storylink')
 subtext = soup.select('.subtext')
+links2 = soup2.select('.storylink')
+subtext2 = soup2.select('.subtext')
 
+mega_links = links + links2
+mega_subtext = subtext + subtext2
 
 # print(links[0], votes[0])
 
@@ -34,4 +40,4 @@ def create_my_news(links, subtext):
 # print(votes[0].getText())
 
 
-pprint.pprint(create_my_news(links, subtext))
+pprint.pprint(create_my_news(mega_links, mega_subtext))
